@@ -1,50 +1,37 @@
 package com.neebal.movieticket.entities;
-
 import jakarta.persistence.*;
+import java.util.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
+@Table(name="bookings")
 class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long booking_id;
+    private Long id;
 
-    @ElementCollection
-    private List<String> bookedSeats;
-
-    private LocalDateTime bookingTime;
-
-    private boolean active;
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "movie_theater_id")
-    private MovieTheater movieTheater;
+    private MovieAuditorium movieAuditorium;
+    @Column
+    private Long bookingTime;
+    @Column
+    private boolean active;
+
+    @OneToMany(mappedBy = "booking")
+    private List<Seat> bookedSeats;
 
 
+    public Booking(){}
 
-
-    public Booking() {
-
+    public Long getId() {
+        return id;
     }
 
-
-    public Booking(List<String> bookedSeats, LocalDateTime bookingTime, boolean active) {
-        this.bookedSeats = bookedSeats;
-        this.bookingTime = bookingTime;
-        this.active = active;
-    }
-
-    public Long getBooking_id() {
-        return booking_id;
-    }
-
-    public void setBooking_id(Long booking_id) {
-        this.booking_id = booking_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -55,27 +42,19 @@ class Booking {
         this.user = user;
     }
 
-    public MovieTheater getMovieTheater() {
-        return movieTheater;
+    public MovieAuditorium getMovieAuditorium() {
+        return movieAuditorium;
     }
 
-    public void setMovieTheater(MovieTheater movieTheater) {
-        this.movieTheater = movieTheater;
+    public void setMovieAuditorium(MovieAuditorium movieAuditorium) {
+        this.movieAuditorium = movieAuditorium;
     }
 
-    public List<String> getBookedSeats() {
-        return bookedSeats;
-    }
-
-    public void setBookedSeats(List<String> bookedSeats) {
-        this.bookedSeats = bookedSeats;
-    }
-
-    public LocalDateTime getBookingTime() {
+    public Long getBookingTime() {
         return bookingTime;
     }
 
-    public void setBookingTime(LocalDateTime bookingTime) {
+    public void setBookingTime(Long bookingTime) {
         this.bookingTime = bookingTime;
     }
 
@@ -87,12 +66,24 @@ class Booking {
         this.active = active;
     }
 
+    public List<Seat> getBookedSeats() {
+        return bookedSeats;
+    }
+
+    public void setBookedSeats(List<Seat> bookedSeats) {
+        this.bookedSeats = bookedSeats;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
-                "booking_id=" +booking_id +
+                "id=" + id +
+                ", user=" + user +
+                ", movieAuditorium=" + movieAuditorium +
                 ", bookingTime=" + bookingTime +
                 ", active=" + active +
+                ", bookedSeats=" + bookedSeats +
                 '}';
     }
 }
+

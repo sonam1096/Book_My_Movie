@@ -1,33 +1,41 @@
 package com.neebal.movieticket.entities;
+import jakarta.persistence.*;
+import java.util.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
+@Table(name="movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movie_id;
+    private Long id;
+    @Column
+
     private String title;
+    @Column
     private String genre;
+    @Column
     private int duration;
+
+    @OneToMany(mappedBy = "movie")
+    private List<MovieAuditorium> movieAuditoriums;
+
 
     public Movie(){}
 
-    public Movie(String title, String genre, int duration) {
+    public Movie(Long id, String title, String genre, int duration) {
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.duration = duration;
     }
 
-    public Long getMovie_id() {
-        return movie_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setMovie_id(Long movie_id) {
-        this.movie_id = movie_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -54,13 +62,22 @@ public class Movie {
         this.duration = duration;
     }
 
+    public List<MovieAuditorium> getMovieAuditoriums() {
+        return movieAuditoriums;
+    }
+
+    public void setMovieAuditoriums(List<MovieAuditorium> movieAuditoriums) {
+        this.movieAuditoriums = movieAuditoriums;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
-                "movie_id=" + movie_id +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", duration=" + duration +
+                ", movieAuditoriums=" + movieAuditoriums +
                 '}';
     }
 }

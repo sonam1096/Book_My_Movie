@@ -1,23 +1,27 @@
 package com.neebal.movieticket.entities;
-
-
 import jakarta.persistence.*;
+import java.util.*;
 
 @Entity
-class Seat {
+@Table(name="seats")
+public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String seatIdentifier;
+
     @ManyToOne
-    @JoinColumn(name = "movieTheater_id")
-    private MovieTheater movieTheater;
+    private Auditorium auditorium; // Relationship with Auditorium
+    @Column
+    private Long seatIdentifier;
+
+    @ManyToOne
+    private Booking booking;
 
 
+    public Seat(){}
 
-    public Seat (){}
-
-    public Seat( String seatIdentifier) {
+    public Seat(Long id, Long seatIdentifier) {
+        this.id = id;
         this.seatIdentifier = seatIdentifier;
     }
 
@@ -29,28 +33,39 @@ class Seat {
         this.id = id;
     }
 
-    public MovieTheater getMovieTheater() {
-        return movieTheater;
+    public Auditorium getAuditorium() {
+        return auditorium;
     }
 
-    public void setMovieTheater(MovieTheater movieTheater) {
-        this.movieTheater = movieTheater;
+    public void setAuditorium(Auditorium auditorium) {
+        this.auditorium = auditorium;
     }
 
-    public String getSeatIdentifier() {
+    public Long getSeatIdentifier() {
         return seatIdentifier;
     }
 
-    public void setSeatIdentifier(String seatIdentifier) {
+    public void setSeatIdentifier(Long seatIdentifier) {
         this.seatIdentifier = seatIdentifier;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     @Override
     public String toString() {
         return "Seat{" +
                 "id=" + id +
-                ", movieTheater=" + movieTheater +
-                ", seatIdentifier='" + seatIdentifier + '\'' +
+                ", auditorium=" + auditorium +
+                ", seatIdentifier=" + seatIdentifier +
+                ", booking=" + booking +
                 '}';
     }
 }
+
+

@@ -1,21 +1,27 @@
 package com.neebal.movieticket.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 
 @Entity
- class User {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private  Long user_id;
-   private  String username;
-   private String  password;
-   private String firstName;
-   private String lastName;
+@Table(name="users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    private String username;
+    @Column
+    private String password;
+    @Column
+    private String firstName;
+    @Column
+    private String lastName;
 
-   public User(){}
+
+    public User() {
+
+    }
 
     public User(String username, String password, String firstName, String lastName) {
         this.username = username;
@@ -24,13 +30,12 @@ import jakarta.persistence.Id;
         this.lastName = lastName;
     }
 
-
-    public Long getUser_id() {
-        return user_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -68,7 +73,7 @@ import jakarta.persistence.Id;
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + user_id +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

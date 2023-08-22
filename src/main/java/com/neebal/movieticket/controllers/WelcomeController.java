@@ -1,9 +1,11 @@
 package com.neebal.movieticket.controllers;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WelcomeController {
+
 
     @GetMapping("/")
     public String showWelcomePage() {
@@ -17,11 +19,11 @@ public class WelcomeController {
 
     @GetMapping("/add-movie")
     public String showAddMoviePage() {
-        return "add-movie"; // Implement your add movie page
+        return "add-movie";
     }
 
     @GetMapping("/add-theatre")
     public String showAddTheatrePage() {
-        return "add-theatre"; // Implement your add theatre page
+        return "add-theatre";
     }
 }
